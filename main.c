@@ -1,18 +1,25 @@
 #include <stdio.h>
 
 void sortColors(int* nums, int numsSize) {
-    int count[3] = {0, 0, 0};
+    int low = 0, high = numsSize - 1, i = 0;
 
-    // Contar o número de 0's, 1's e 2's
-    for (int i = 0; i < numsSize; i++) {
-        count[nums[i]]++;
-    }
-
-    // Sobrescrever o array
-    int index = 0;
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < count[i]; j++) {
-            nums[index++] = i;
+    while (i <= high) {
+        if (nums[i] == 0) {
+            // Troca nums[i] com nums[low] e avança os dois ponteiros
+            int temp = nums[i];
+            nums[i] = nums[low];
+            nums[low] = temp;
+            low++;
+            i++;
+        } else if (nums[i] == 2) {
+            // Troca nums[i] com nums[high] e decrementa high
+            int temp = nums[i];
+            nums[i] = nums[high];
+            nums[high] = temp;
+            high--;
+        } else {
+            // Avança o ponteiro
+            i++;
         }
     }
 }
